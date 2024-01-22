@@ -26,11 +26,15 @@ function Register() {
     if (handleValidation()) {
       console.log("validation:", registerRoute);
       const { password, username, email } = values;
-      const { data } = await axios.post(registerRoute, {
-        username,
-        password,
-        email,
-      });
+      const { data } = await axios.post(
+        registerRoute,
+        {
+          username,
+          password,
+          email,
+        },
+        { withCredentials: false }
+      );
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
       }

@@ -9,7 +9,11 @@ require("dotenv").config();
 const PORT = process.env.PORT;
 const MONGO_URL = process.env.MONGO_URL;
 const MONGO_URL_ATLAS = process.env.URL_MONGODB_ATLAS;
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 
 mongoose
@@ -21,7 +25,7 @@ mongoose
     console.log("DB connection successful");
   })
   .catch((err) => {
-    console.log(err.message,"có lỗi xảy ra");
+    console.log(err.message, "có lỗi xảy ra");
   });
 
 app.get("/", function (req, res) {
@@ -37,6 +41,7 @@ const io = socket(server, {
   cors: {
     origin: "*",
     credentials: true,
+    allowedHeaders: ["Access-Control-Allow-Origin:http://localhost:3000/"],
   },
 });
 global.onlineUsers = new Map();

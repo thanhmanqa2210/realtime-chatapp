@@ -24,11 +24,15 @@ function Login() {
     e.preventDefault();
     if (handleValidation()) {
       const { password, username, email } = values;
-      const { data } = await axios.post(loginRoute, {
-        username,
-        password,
-        email,
-      });
+      const { data } = await axios.post(
+        loginRoute,
+        {
+          username,
+          password,
+          email,
+        },
+        { withCredentials: false }
+      );
       if (data.status === false) {
         toast.error(data.msg, toastOptions);
       }
