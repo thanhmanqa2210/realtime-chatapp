@@ -51,9 +51,9 @@ function Register() {
     } else if (username.length < 3) {
       toast.error("Username should be greater than 3 characters", toastOptions);
       return false;
-    } else if (password.length < 8) {
+    } else if (password.length < 6) {
       toast.error(
-        "Password should be equal or greater than 3 characters",
+        "Password should be equal or greater than 6 characters",
         toastOptions
       );
       return false;

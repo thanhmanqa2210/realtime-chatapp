@@ -8,7 +8,7 @@ const socket = require("socket.io");
 require("dotenv").config();
 const PORT = process.env.PORT;
 const MONGO_URL = process.env.MONGO_URL;
-
+const MONGO_URL_ATLAS = process.env.URL_MONGODB_ATLAS;
 app.use(cors());
 app.use(express.json());
 
@@ -21,7 +21,7 @@ mongoose
     console.log("DB connection successful");
   })
   .catch((err) => {
-    console.log(err.message);
+    console.log(err.message,"có lỗi xảy ra");
   });
 
 app.get("/", function (req, res) {
@@ -33,10 +33,9 @@ app.use("/api/messages/", messageRouter);
 const server = app.listen(PORT, () => {
   console.log(`server start on port ${PORT}`);
 });
-
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     credentials: true,
   },
 });

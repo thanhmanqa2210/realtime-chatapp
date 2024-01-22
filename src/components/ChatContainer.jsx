@@ -7,6 +7,7 @@ import Messages from "./Messages";
 import { v4 as uuidV4 } from "uuid";
 import { sendMessageRoute, getAllMessagesRoute } from "../utils/APIRoutes";
 function ChatContainer({ currentChat, currentUser, socket }) {
+  console.log(uuidV4())
   const scrollRef = useRef();
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -21,14 +22,15 @@ function ChatContainer({ currentChat, currentUser, socket }) {
     };
     getMessages();
     setIsLoadMessages(false);
-  }, [isLoadMessages, currentChat]);
+  }, [isLoadMessages, currentChat,currentUser]);
 
   const handleSendMsg = async (msg) => {
-    await axios.post(sendMessageRoute, {
+   const dataTest = await axios.post(sendMessageRoute, {
       from: currentUser?._id,
       to: currentChat?._id,
       message: msg,
     });
+    console.log("dataTest",dataTest.data.msg);
     await setIsLoadMessages(true);
     socket.current.emit("send-msg", {
       to: currentChat._id,
